@@ -17,12 +17,18 @@ import AuthenticationPage, {
   action as authAction,
 } from "./pages/Authentication";
 import { action as logoutAction } from "./pages/Logout";
+import { tokenLoader } from "./util/auth";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
     errorElement: <ErrorPage />,
+    id: "root",
+    //untuk mengecek apakah token masih ada di storage atau belum
+    //disini kita tidak menggunakan context , melainkan kita memanfaatkan fitur dari react router dom
+    //yang dimana loader ini reactive , jadi ketika ada perubahan akan update atau reevaluating
+    loader: tokenLoader,
     children: [
       { index: true, element: <HomePage /> },
       {
